@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../../../routes/app_routes.dart';
 
 class HomePage extends StatelessWidget {
+  final String imagePath = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +15,7 @@ class HomePage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage('https://example.com/camping-background.jpg'), // Ganti URL dengan gambar yang sesuai
+                image: AssetImage(imagePath), // Menggunakan AssetImage
                 fit: BoxFit.cover,
               ),
             ),

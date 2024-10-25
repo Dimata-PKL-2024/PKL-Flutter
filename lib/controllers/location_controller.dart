@@ -2,21 +2,17 @@ import 'package:get/get.dart';
 import '../models/location_model.dart';
 
 class LocationController extends GetxController {
-  // List of camping locations
-  final locations = <Location>[
-    Location(
-      name: 'Gunung Bromo',
-      description: 'Tempat camping favorit di pegunungan.',
-      imageUrl: 'https://example.com/bromo.jpg',
-    ),
-    Location(
-      name: 'Ranu Kumbolo',
-      description: 'Danau yang indah untuk tempat camping.',
-      imageUrl: 'https://example.com/ranu.jpg',
-    ),
-  ].obs;
+  // Reactive list of camping locations using data from the model
+  final locations = <Location>[].obs;
 
-  // Fetch location details (this could later connect to a service or database)
+  @override
+  void onInit() {
+    super.onInit();
+    // Initialize the locations list from the model when the controller is initialized
+    locations.addAll(Location.getLocations());
+  }
+
+  // Fetch location details (optional if needed)
   Location getLocationDetails(int index) {
     return locations[index];
   }

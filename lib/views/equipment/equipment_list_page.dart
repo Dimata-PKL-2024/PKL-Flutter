@@ -1,57 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../models/equipment_model.dart';
+import 'package:pkl_flutter/controllers/equipment_controller.dart';
 import '../../../routes/app_routes.dart';
 
 class EquipmentListPage extends StatelessWidget {
-  final List<Equipment> equipmentList = [
-    Equipment(
-      name: 'Tenda',
-      description: 'Tenda camping nyaman untuk dua orang.',
-      pricePerDay: 10.0,
-      imageUrl: 'https://example.com/tent.jpg',
-    ),
-    Equipment(
-      name: 'Sleeping Bag',
-      description: 'Sleeping bag yang hangat dan nyaman.',
-      pricePerDay: 5.0,
-      imageUrl: 'https://example.com/sleepingbag.jpg', 
-    ),
-  ];
+  final EquipmentController controller = Get.put(EquipmentController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Peralatan Camping'),
+      appBar: buildAppBar(),
+      body: Obx(() {
+        return buildEquipmentList();
+      }),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      title: Text(
+        'Peralatan Camping',
+        style: TextStyle(color: Colors.white, fontSize: 20),
       ),
-      body: ListView.builder(
-        itemCount: equipmentList.length,
-        itemBuilder: (context, index) {
-          final equipment = equipmentList[index];
-          return Card(
-            margin: EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: Image.network(
-                equipment.imageUrl,
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-              ),
-              title: Text(
-                equipment.name,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                'Rp${equipment.pricePerDay}/hari',
-                style: TextStyle(color: Colors.green),
-              ),
-              onTap: () {
-                Get.toNamed(AppRoutes.equipmentRent, arguments: equipment);
-              },
-            ),
-          );
+      backgroundColor: Colors.teal[700],
+      iconTheme: IconThemeData(color: Colors.white),
+    );
+  }
+
+  Widget buildEquipmentList() {
+    return ListView.builder(
+      padding: EdgeInsets.all(8),
+      itemCount: controller.equipmentList.length,
+      itemBuilder: (context, index) {
+        final equipment = controller.equipmentList[index];
+        return buildEquipmentCard(equipment);
+      },
+    );
+  }
+
+  Widget buildEquipmentCard(equipment) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      elevation: 4,
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: buildImage(equipment.imagePath),
+        title: buildTitle(equipment.name),
+        subtitle: buildSubtitle(equipment.pricePerDay),
+        trailing: Icon(Icons.arrow_forward_ios, color: Colors.teal[700], size: 18),
+        onTap: () {
+          Get.toNamed(AppRoutes.equipmentRent, arguments: equipment);
         },
+      ),
+    );
+  }
+
+  Widget buildImage(String imagePath) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.asset(
+        imagePath,
+        width: 80,
+        height: 80,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Widget buildTitle(String name) {
+    return Text(
+      name,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: Colors.teal[800],
+      ),
+    );
+  }
+
+  Widget buildSubtitle(int pricePerDay) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 4.0),
+      child: Text(
+        'Rp${pricePerDay}/hari',
+        style: TextStyle(color: Colors.green[600], fontSize: 16),
       ),
     );
   }
