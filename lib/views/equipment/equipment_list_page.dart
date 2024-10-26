@@ -22,7 +22,7 @@ class EquipmentListPage extends StatelessWidget {
         'Peralatan Camping',
         style: TextStyle(color: Colors.white, fontSize: 20),
       ),
-      backgroundColor: Colors.teal[700],
+      backgroundColor: Colors.blueAccent,
       iconTheme: IconThemeData(color: Colors.white),
     );
   }
@@ -49,7 +49,7 @@ class EquipmentListPage extends StatelessWidget {
         leading: buildImage(equipment.imagePath),
         title: buildTitle(equipment.name),
         subtitle: buildSubtitle(equipment.pricePerDay),
-        trailing: Icon(Icons.arrow_forward_ios, color: Colors.teal[700], size: 18),
+        trailing: Icon(Icons.arrow_forward_ios, color: Colors.blueAccent[700], size: 18),
         onTap: () {
           Get.toNamed(AppRoutes.equipmentRent, arguments: equipment);
         },
@@ -75,7 +75,7 @@ class EquipmentListPage extends StatelessWidget {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 18,
-        color: Colors.teal[800],
+        color: Colors.blueAccent[700],
       ),
     );
   }

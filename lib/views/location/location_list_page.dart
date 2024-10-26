@@ -100,8 +100,12 @@ class _LocationListPageState extends State<LocationListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lokasi Camping'),
+        title: Text(
+          'Lokasi Camping',
+          style: TextStyle(color: Colors.white), 
+        ),
         backgroundColor: Colors.teal[400],
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Column(
         children: [

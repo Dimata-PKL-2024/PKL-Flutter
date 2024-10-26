@@ -3,42 +3,48 @@ import 'package:get/get.dart';
 import '../../../routes/app_routes.dart';
 
 class HomePage extends StatelessWidget {
-  final String imagePath = '';
+  final String imagePath = 'images/camping.jpg';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Latar belakang gambar
       body: Stack(
         children: [
-          // Gambar latar belakang
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(imagePath), // Menggunakan AssetImage
+                image: AssetImage(imagePath),
                 fit: BoxFit.cover,
               ),
             ),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.black.withOpacity(0.4), Colors.black.withOpacity(0.2)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+            ),
           ),
-          // Konten di atas gambar
           Center(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Teks judul aplikasi
                   Text(
-                    'Selamat Datang di Camping App',
+                    'Selamat Datang di PANCA CAMPING',
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
+                      fontFamily: 'Roboto', 
                       shadows: [
                         Shadow(
-                          blurRadius: 10.0,
-                          color: Colors.black45,
-                          offset: Offset(2.0, 2.0),
+                          blurRadius: 12.0,
+                          color: Colors.black54,
+                          offset: Offset(3.0, 3.0),
                         ),
                       ],
                     ),
@@ -46,25 +52,39 @@ class HomePage extends StatelessWidget {
                   ),
                   SizedBox(height: 40),
                   // Tombol untuk menjelajahi lokasi camping
-                  ElevatedButton(
+                  ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.greenAccent[400], // Warna tombol
+                      foregroundColor: Colors.white,
                       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                      textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      backgroundColor: Colors.greenAccent[400],
                     ),
+                    icon: Icon(Icons.hiking, color: Colors.white),
                     onPressed: () => Get.toNamed(AppRoutes.locationList),
-                    child: Text('Jelajahi Lokasi Camping'),
+                    label: Text(
+                      'Jelajahi Lokasi Camping',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(height: 20),
                   // Tombol untuk menyewa peralatan camping
-                  ElevatedButton(
+                  ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent, // Warna tombol kedua
+                      foregroundColor: Colors.white,
                       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                      textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      backgroundColor: Colors.blueAccent,
                     ),
+                    icon: Icon(Icons.shopping_bag, color: Colors.white),
                     onPressed: () => Get.toNamed(AppRoutes.equipmentList),
-                    child: Text('Sewa Peralatan Camping'),
+                    label: Text(
+                      'Sewa Peralatan Camping',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),

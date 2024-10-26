@@ -9,40 +9,43 @@ class EquipmentRentPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sewa ${equipment.name}'),
-        backgroundColor: Colors.teal[700],
+        title: Text(
+          'Sewa ${equipment.name}',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blueAccent,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Gambar peralatan
             buildImageSection(equipment.imagePath),
-            
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildTitleSection(equipment),
-                  Divider(color: Colors.teal[100], thickness: 1.5),
+                  Divider(color: Colors.blueAccent[100], thickness: 1.5),
                   buildSpecificationSection(equipment),
-                  Divider(color: Colors.teal[100], thickness: 1.5),
+                  Divider(color: Colors.blueAccent[100], thickness: 1.5),
                   buildUserReviewsSection(),
                 ],
               ),
             ),
-            
             SizedBox(height: 20.0),
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Logic untuk menyewa peralatan
                   Get.snackbar('Berhasil', 'Anda telah menyewa ${equipment.name}');
                 },
-                child: Text('Sewa Sekarang'),
+                child: Text(
+                  'Sewa Sekarang',
+                  style: TextStyle(color: Colors.white),
+                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal[700],
+                  backgroundColor: Colors.blueAccent,
                   padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
                   textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
@@ -91,7 +94,7 @@ class EquipmentRentPage extends StatelessWidget {
       children: [
         Text(
           equipment.name,
-          style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold, color: Colors.teal[800]),
+          style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold, color: Colors.blueAccent[700]),
         ),
         SizedBox(height: 8),
         Row(
@@ -113,7 +116,7 @@ class EquipmentRentPage extends StatelessWidget {
         SizedBox(height: 16),
         Text(
           'Harga per hari: Rp${equipment.pricePerDay}',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.teal[800]),
+          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.blueAccent[700]),
         ),
       ],
     );
@@ -125,7 +128,7 @@ class EquipmentRentPage extends StatelessWidget {
       children: [
         Text(
           'Spesifikasi',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.teal[700]),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.blueAccent[700]),
         ),
         SizedBox(height: 8),
         buildSpecRow('Bahan', equipment.specifications['Bahan'] ?? 'Tidak diketahui'),
@@ -154,7 +157,7 @@ class EquipmentRentPage extends StatelessWidget {
       children: [
         Text(
           'Ulasan Pengguna',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.teal[700]),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.blueAccent[700]),
         ),
         SizedBox(height: 8),
         buildReviewCard('Budi', 'Sangat nyaman, cocok untuk camping!', 4.5),
@@ -169,7 +172,7 @@ class EquipmentRentPage extends StatelessWidget {
       elevation: 3,
       margin: EdgeInsets.symmetric(vertical: 6),
       child: ListTile(
-        leading: Icon(Icons.person, color: Colors.teal[700], size: 30),
+        leading: Icon(Icons.person, color: Colors.blueAccent, size: 30),
         title: Text(user, style: TextStyle(fontWeight: FontWeight.w600)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

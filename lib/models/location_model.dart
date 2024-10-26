@@ -4,12 +4,12 @@ class Location {
   final String imagePath;
   final List<String> facilities;
   final String price;
-  final double rating; // Ganti dengan double untuk rating
+  final double rating;
   final List<String> activities;
   final List<String> rules;
   final String bestSeason;
   final String weather;
-  final String shortLocation; // Menyimpan informasi lokasi singkat
+  final String shortLocation; 
 
   Location({
     required this.name,
@@ -17,15 +17,15 @@ class Location {
     required this.imagePath,
     required this.facilities,
     required this.price,
-    required this.rating, // Ganti dengan parameter rating
+    required this.rating, 
     required this.activities,
     required this.rules,
     required this.bestSeason,
     required this.weather,
-    required this.shortLocation, // Menambahkan parameter lokasi singkat
+    required this.shortLocation, 
   });
 
-  // List of predefined locations with more details
+ 
   static List<Location> getLocations() {
     return [
       Location(
@@ -83,7 +83,7 @@ class Location {
       Location(
         name: 'Bukit Cinta',
         description: 'Terkenal sebagai spot terbaik untuk melihat Gunung Agung, Bukit Cinta memiliki lanskap yang luas dan romantis.',
-        imagePath: '', // Tambahkan image path jika ada
+        imagePath: 'images/buyan.jpg',
         facilities: ['Area camping yang luas', 'Toilet umum', 'Tempat piknik'],
         price: 'Rp130.000 per malam',
         rating: 4.8, // Ganti dengan rating
