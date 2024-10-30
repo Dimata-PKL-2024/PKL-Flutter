@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../routes/app_routes.dart';
@@ -17,12 +18,16 @@ class HomePage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.black.withOpacity(0.4), Colors.black.withOpacity(0.2)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.2),
+                  gradient: LinearGradient(
+                    colors: [Colors.black.withOpacity(0.4), Colors.black.withOpacity(0.2)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
                 ),
               ),
             ),
