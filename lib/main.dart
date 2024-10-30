@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:pkl_flutter/routes/app_routes.dart';
 
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Camping App',
-      initialRoute: AppRoutes.home,
+      initialRoute: '/login',
       getPages: AppRoutes.routes,
     );
   }

@@ -10,10 +10,9 @@ class Equipment {
     required this.description,
     required this.pricePerDay,
     required this.imagePath,
-    required this.specifications, // New field for specifications
+    required this.specifications,
   });
 
-  // Static method to fetch list of equipment
   static List<Equipment> getEquipmentList() {
     return [
       Equipment(
@@ -40,7 +39,8 @@ class Equipment {
       ),
       Equipment(
         name: 'Kompor',
-        description: 'Kompor portabel yang mudah dibawa, cocok untuk memasak di alam.',
+        description:
+            'Kompor portabel yang mudah dibawa, cocok untuk memasak di alam.',
         pricePerDay: 50000,
         imagePath: 'images/kompor.png',
         specifications: {
@@ -62,7 +62,8 @@ class Equipment {
       ),
       Equipment(
         name: 'Headlamp',
-        description: 'Headlamp dengan cahaya terang, ideal untuk aktivitas malam.',
+        description:
+            'Headlamp dengan cahaya terang, ideal untuk aktivitas malam.',
         pricePerDay: 50000,
         imagePath: 'images/headlamp.png',
         specifications: {

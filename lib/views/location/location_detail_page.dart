@@ -26,9 +26,12 @@ class LocationDetailPage extends StatelessWidget {
                   buildTitleSection(location),
                   Divider(thickness: 1.5, color: Colors.teal[100]),
                   buildRatingSection(location.rating), // Pindah rating ke atas
-                  buildIconSection(Icons.hotel, 'Facilities', location.facilities),
-                  buildIconSection(Icons.monetization_on, 'Price', [location.price]),
-                  buildIconSection(Icons.sports_handball, 'Activities', location.activities),
+                  buildIconSection(
+                      Icons.hotel, 'Facilities', location.facilities),
+                  buildIconSection(
+                      Icons.monetization_on, 'Price', [location.price]),
+                  buildIconSection(
+                      Icons.sports_handball, 'Activities', location.activities),
                   buildIconSection(Icons.rule, 'Rules', location.rules),
                   buildIconSection(Icons.wb_sunny, 'Best Season & Weather', [
                     'Best season: ${location.bestSeason}',
@@ -68,7 +71,10 @@ class LocationDetailPage extends StatelessWidget {
             ),
             child: Text(
               'Explore',
-              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500),
             ),
           ),
         ),
@@ -82,7 +88,10 @@ class LocationDetailPage extends StatelessWidget {
       children: [
         Text(
           location.name,
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.teal[800]),
+          style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.teal[800]),
         ),
         SizedBox(height: 8),
         Text(
@@ -116,14 +125,18 @@ class LocationDetailPage extends StatelessWidget {
           SizedBox(width: 8),
           Text(
             'Rating: $rating',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.teal[700]),
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.teal[700]),
           ),
         ],
       ),
     );
   }
 
-  Widget buildIconSection(IconData icon, String title, List<String> items, {bool isQuote = false}) {
+  Widget buildIconSection(IconData icon, String title, List<String> items,
+      {bool isQuote = false}) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
       curve: Curves.easeInOut,
@@ -149,7 +162,10 @@ class LocationDetailPage extends StatelessWidget {
               SizedBox(width: 8),
               Text(
                 title,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.teal[700]),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.teal[700]),
               ),
             ],
           ),
@@ -159,7 +175,9 @@ class LocationDetailPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Text(
                 isQuote ? '"$item"' : '• $item',
-                style: TextStyle(fontSize: 14, color: isQuote ? Colors.grey[700] : Colors.grey[800]),
+                style: TextStyle(
+                    fontSize: 14,
+                    color: isQuote ? Colors.grey[700] : Colors.grey[800]),
               ),
             );
           }).toList(),

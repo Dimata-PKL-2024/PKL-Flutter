@@ -49,7 +49,8 @@ class EquipmentListPage extends StatelessWidget {
         leading: buildImage(equipment.imagePath),
         title: buildTitle(equipment.name),
         subtitle: buildSubtitle(equipment.pricePerDay),
-        trailing: Icon(Icons.arrow_forward_ios, color: Colors.blueAccent[700], size: 18),
+        trailing: Icon(Icons.arrow_forward_ios,
+            color: Colors.blueAccent[700], size: 18),
         onTap: () {
           Get.toNamed(AppRoutes.equipmentRent, arguments: equipment);
         },
@@ -80,7 +81,7 @@ class EquipmentListPage extends StatelessWidget {
     );
   }
 
-  Widget buildSubtitle(int pricePerDay) {
+  Widget buildSubtitle(double pricePerDay) {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Text(
