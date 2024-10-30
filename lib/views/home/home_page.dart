@@ -9,6 +9,20 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.all(12.0), // Menambahkan padding untuk memperbesar area tombol
+          child: IconButton(
+            icon: Icon(Icons.logout, color: Colors.white, size: 32), // Ukuran ikon lebih besar
+            onPressed: () {
+              Get.offAllNamed(AppRoutes.login);
+            },
+          ),
+        ),
+      ),
+      extendBodyBehindAppBar: true,
       body: Stack(
         children: [
           Container(
@@ -24,7 +38,10 @@ class HomePage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.2),
                   gradient: LinearGradient(
-                    colors: [Colors.black.withOpacity(0.4), Colors.black.withOpacity(0.2)],
+                    colors: [
+                      Colors.black.withOpacity(0.4),
+                      Colors.black.withOpacity(0.2)
+                    ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -44,7 +61,6 @@ class HomePage extends StatelessWidget {
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-                      fontFamily: 'Roboto', 
                       shadows: [
                         Shadow(
                           blurRadius: 12.0,
@@ -56,7 +72,6 @@ class HomePage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 40),
-                  // Tombol untuk menjelajahi lokasi camping
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,

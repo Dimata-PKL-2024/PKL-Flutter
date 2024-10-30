@@ -102,7 +102,7 @@ class _LocationListPageState extends State<LocationListPage> {
       appBar: AppBar(
         title: Text(
           'Lokasi Camping',
-          style: TextStyle(color: Colors.white), 
+          style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.teal[400],
         iconTheme: IconThemeData(color: Colors.white),

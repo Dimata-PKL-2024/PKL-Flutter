@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1078981947282",
+    "project_id": "pkl-flutter-camping",
+    "storage_bucket": "pkl-flutter-camping.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078981947282:android:bcb2f6a43d060caf73db4b",
+        "android_client_info": {
+          "package_name": "com.example.pkl_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADza6chCp8RvdREyej_9i2oIr5Rwaa2og"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
