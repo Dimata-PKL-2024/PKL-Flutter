@@ -10,6 +10,7 @@ class Location {
   final String bestSeason;
   final String weather;
   final String shortLocation;
+  bool isWishlisted;
 
   Location({
     required this.name,
@@ -23,6 +24,7 @@ class Location {
     required this.bestSeason,
     required this.weather,
     required this.shortLocation,
+    this.isWishlisted = false,
   });
 
   static List<Location> getLocations() {

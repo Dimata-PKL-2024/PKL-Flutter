@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Camping App',
-      initialRoute: '/login',
+      initialRoute: '/equipment',
       getPages: AppRoutes.routes,
     );
   }

@@ -5,8 +5,17 @@ import '../../../routes/app_routes.dart';
 
 class LocationItem extends StatelessWidget {
   final Location location;
+  final VoidCallback onWishlistToggle;
+  final VoidCallback? onDelete;
+  final bool isWishlisted;
 
-  const LocationItem({Key? key, required this.location}) : super(key: key);
+  const LocationItem({
+    Key? key,
+    required this.location,
+    required this.onWishlistToggle,
+    this.onDelete,
+    required this.isWishlisted,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +74,23 @@ class LocationItem extends StatelessWidget {
                             ),
                           ),
                         ),
+                        IconButton(
+                          icon: Icon(
+                            isWishlisted
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: isWishlisted ? Colors.red : Colors.grey,
+                          ),
+                          onPressed: onWishlistToggle,
+                        ),
+                        if (onDelete != null)
+                          IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.grey,
+                            ),
+                            onPressed: onDelete,
+                          ),
                       ],
                     ),
                   ],
@@ -86,6 +112,7 @@ class LocationListPage extends StatefulWidget {
 class _LocationListPageState extends State<LocationListPage> {
   List<Location> locations = Location.getLocations();
   List<Location> filteredLocations = Location.getLocations();
+  List<Location> wishlist = [];
 
   void _filterLocations(String query) {
     setState(() {
@@ -96,14 +123,27 @@ class _LocationListPageState extends State<LocationListPage> {
     });
   }
 
+  void _toggleWishlist(Location location) {
+    setState(() {
+      if (wishlist.contains(location)) {
+        wishlist.remove(location);
+      } else {
+        wishlist.add(location);
+      }
+    });
+  }
+
+  void _removeFromWishlist(Location location) {
+    setState(() {
+      wishlist.remove(location);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Lokasi Camping',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: Text('Lokasi Camping', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal[400],
         iconTheme: IconThemeData(color: Colors.white),
       ),
@@ -111,15 +151,57 @@ class _LocationListPageState extends State<LocationListPage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              onChanged: _filterLocations,
-              decoration: InputDecoration(
-                hintText: 'Cari lokasi...',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: TextField(
+                    onChanged: _filterLocations,
+                    decoration: InputDecoration(
+                      hintText: 'Cari lokasi...',
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(width: 8),
+                Expanded(
+                  flex: 1,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      final result = await Get.to(WishlistPage(
+                        wishlist: wishlist,
+                        onRemoveFromWishlist: _removeFromWishlist,
+                      ));
+                      if (result != null && result) {
+                        setState(() {});
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.favorite, color: Colors.red),
+                        SizedBox(width: 6),
+                        Text(
+                          'Wishlist',
+                          style: TextStyle(
+                            color: Colors.teal[700],
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -127,12 +209,62 @@ class _LocationListPageState extends State<LocationListPage> {
               itemCount: filteredLocations.length,
               itemBuilder: (context, index) {
                 final location = filteredLocations[index];
-                return LocationItem(location: location);
+                return LocationItem(
+                  location: location,
+                  onWishlistToggle: () => _toggleWishlist(location),
+                  isWishlisted: wishlist.contains(location),
+                );
               },
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class WishlistPage extends StatefulWidget {
+  final List<Location> wishlist;
+  final Function(Location) onRemoveFromWishlist;
+
+  const WishlistPage({
+    Key? key,
+    required this.wishlist,
+    required this.onRemoveFromWishlist,
+  }) : super(key: key);
+
+  @override
+  _WishlistPageState createState() => _WishlistPageState();
+}
+
+class _WishlistPageState extends State<WishlistPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Wishlist', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.teal[400],
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      body: widget.wishlist.isEmpty
+          ? Center(child: Text('Belum ada lokasi dalam wishlist'))
+          : ListView.builder(
+              itemCount: widget.wishlist.length,
+              itemBuilder: (context, index) {
+                final location = widget.wishlist[index];
+                return LocationItem(
+                  location: location,
+                  onWishlistToggle: () {}, // Tidak digunakan di halaman ini
+                  onDelete: () {
+                    setState(() {
+                      widget.wishlist.remove(location);
+                    });
+                    widget.onRemoveFromWishlist(location);
+                  },
+                  isWishlisted: true,
+                );
+              },
+            ),
     );
   }
 }

@@ -19,6 +19,7 @@ class AppRoutes {
   static const locationDetail = '/location_detail';
   static const equipmentList = '/equipment';
   static const equipmentRent = '/rent_equipment';
+  static const cartPage = '/cartPage';
 
   static final routes = [
     GetPage(name: home, page: () => HomePage()),
@@ -36,6 +37,8 @@ class AppRoutes {
 
     GetPage(name: login, page: () => LoginPage(), binding: AuthBinding()),
     GetPage(name: register, page: () => RegisterPage(), binding: AuthBinding()),
+
+
 
     GetPage(
       name: locationList,

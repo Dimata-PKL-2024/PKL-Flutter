@@ -12,6 +12,17 @@ class LocationDetailPage extends StatelessWidget {
         title: Text(location.name, style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal[700],
         iconTheme: IconThemeData(color: Colors.white),
+        actions: [
+          IconButton(
+            icon: Icon(
+              location.isWishlisted ? Icons.favorite : Icons.favorite_border,
+              color: Colors.redAccent,
+            ),
+            onPressed: () {
+              toggleWishlist(location);
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -25,13 +36,10 @@ class LocationDetailPage extends StatelessWidget {
                 children: [
                   buildTitleSection(location),
                   Divider(thickness: 1.5, color: Colors.teal[100]),
-                  buildRatingSection(location.rating), // Pindah rating ke atas
-                  buildIconSection(
-                      Icons.hotel, 'Facilities', location.facilities),
-                  buildIconSection(
-                      Icons.monetization_on, 'Price', [location.price]),
-                  buildIconSection(
-                      Icons.sports_handball, 'Activities', location.activities),
+                  buildRatingSection(location.rating),
+                  buildIconSection(Icons.hotel, 'Facilities', location.facilities),
+                  buildIconSection(Icons.monetization_on, 'Price', [location.price]),
+                  buildIconSection(Icons.sports_handball, 'Activities', location.activities),
                   buildIconSection(Icons.rule, 'Rules', location.rules),
                   buildIconSection(Icons.wb_sunny, 'Best Season & Weather', [
                     'Best season: ${location.bestSeason}',
@@ -44,6 +52,11 @@ class LocationDetailPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void toggleWishlist(Location location) {
+    location.isWishlisted = !location.isWishlisted;
+    // Tambahkan logika untuk menyimpan status wishlist ke storage atau provider
   }
 
   Widget buildImageSection(String imagePath) {
