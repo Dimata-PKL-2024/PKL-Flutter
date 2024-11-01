@@ -3,8 +3,8 @@ import '../models/equipment_model.dart';
 
 class EquipmentController extends GetxController {
   final equipmentList = <Equipment>[].obs;
-  final cartItems = <Equipment>[].obs; 
-  final cartItemCount = 0.obs; 
+  final cartItems = <Equipment>[].obs;
+  final cartItemCount = 0.obs;
 
   @override
   void onInit() {
@@ -20,10 +20,27 @@ class EquipmentController extends GetxController {
     Get.snackbar('Berhasil', 'Anda telah menyewa ${equipment.name}');
   }
 
-  // Fungsi untuk menambahkan item ke keranjang
-  void addToCart(Equipment equipment) {
-    cartItems.add(equipment);
-    cartItemCount.value = cartItems.length; // Update jumlah item di keranjang
-    Get.snackbar('Berhasil', '${equipment.name} ditambahkan ke keranjang');
+  void addToCart(Equipment equipment, int quantity) {
+    int existingIndex =
+        cartItems.indexWhere((item) => item.name == equipment.name);
+
+    if (existingIndex != -1) {
+      cartItems[existingIndex].quantity += quantity;
+    } else {
+      Equipment itemToAdd = Equipment(
+        name: equipment.name,
+        description: equipment.description,
+        pricePerDay: equipment.pricePerDay,
+        imagePath: equipment.imagePath,
+        specifications: equipment.specifications,
+        quantity: quantity,
+      );
+      cartItems.add(itemToAdd);
+    }
+
+    cartItemCount.value = cartItems.length;
+
+    Get.snackbar(
+        'Berhasil', '${equipment.name} ($quantity) ditambahkan ke keranjang');
   }
 }

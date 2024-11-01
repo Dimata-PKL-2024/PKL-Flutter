@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:pkl_flutter/controllers/equipment_controller.dart';
 
 class CartPage extends StatelessWidget {
-  final EquipmentController controller = Get.find(); // Mengambil instance EquipmentController
+  final EquipmentController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +48,12 @@ class CartPage extends StatelessWidget {
       child: ListTile(
         leading: buildImage(equipment.imagePath),
         title: buildTitle(equipment.name),
-        subtitle: buildSubtitle(equipment.pricePerDay),
+        subtitle: buildSubtitle(equipment.pricePerDay, equipment.quantity),
         trailing: IconButton(
-          icon: Icon(Icons.remove_circle, color: Colors.red),
+          icon: Icon(Icons.delete, color: Colors.red),
           onPressed: () {
-            // Logika untuk menghapus item dari keranjang
             controller.cartItems.remove(equipment);
-            controller.cartItemCount.value = controller.cartItems.length; // Update jumlah item di keranjang
+            controller.cartItemCount.value = controller.cartItems.length;
           },
         ),
       ),
@@ -84,11 +83,11 @@ class CartPage extends StatelessWidget {
     );
   }
 
-  Widget buildSubtitle(double pricePerDay) {
+  Widget buildSubtitle(double pricePerDay, int quantity) {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Text(
-        'Rp${pricePerDay}/hari',
+        'Rp${pricePerDay}/hari x $quantity',
         style: TextStyle(color: Colors.green[600], fontSize: 16),
       ),
     );

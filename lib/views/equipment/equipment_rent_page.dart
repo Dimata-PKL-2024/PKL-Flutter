@@ -3,8 +3,14 @@ import '../../../models/equipment_model.dart';
 import 'package:get/get.dart';
 import '../../../controllers/equipment_controller.dart';
 
-class EquipmentRentPage extends StatelessWidget {
-  final EquipmentController controller = Get.find(); // Mengambil instance EquipmentController
+class EquipmentRentPage extends StatefulWidget {
+  @override
+  _EquipmentRentPageState createState() => _EquipmentRentPageState();
+}
+
+class _EquipmentRentPageState extends State<EquipmentRentPage> {
+  final EquipmentController controller = Get.find(); 
+  int quantity = 1; 
 
   @override
   Widget build(BuildContext context) {
@@ -37,26 +43,69 @@ class EquipmentRentPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20.0),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  controller.addToCart(equipment); // Menambahkan item ke keranjang
-                },
-                child: Text(
-                  'Sewa Sekarang',
-                  style: TextStyle(color: Colors.white),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-                  textStyle:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ),
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+
+      Spacer(),
+
+      Row(
+        children: [
+          Text(
+            'Jumlah:',
+            style: TextStyle(fontSize: 18, color: Colors.grey[700]),
+          ),
+          SizedBox(width: 8),
+          IconButton(
+            icon: Icon(Icons.remove),
+            onPressed: () {
+              setState(() {
+                if (quantity > 1) quantity--;
+              });
+            },
+          ),
+          Text(
+            '$quantity',
+            style: TextStyle(fontSize: 18, color: Colors.grey[700]),
+          ),
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              setState(() {
+                quantity++;
+              });
+            },
+          ),
+        ],
+      ),
+
+      SizedBox(width: 16),
+
+      ElevatedButton(
+        onPressed: () {
+          controller.addToCart(equipment, quantity);
+        },
+        child: Row(
+          children: [
+            Text(
+              'Tambah ke Keranjang',
+              style: TextStyle(color: Colors.white),
             ),
-            SizedBox(height: 20.0),
+          ],
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blueAccent,
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ),
+    ],
+  ),
+),
+
           ],
         ),
       ),

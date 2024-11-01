@@ -4,6 +4,7 @@ class Equipment {
   final double pricePerDay;
   final String imagePath;
   final Map<String, String> specifications;
+  int quantity;
 
   Equipment({
     required this.name,
@@ -11,6 +12,7 @@ class Equipment {
     required this.pricePerDay,
     required this.imagePath,
     required this.specifications,
+    this.quantity = 1,
   });
 
   static List<Equipment> getEquipmentList() {
