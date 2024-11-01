@@ -6,10 +6,12 @@ import '../views/equipment/equipment_list_page.dart';
 import '../views/equipment/equipment_rent_page.dart';
 import '../views/auth/login_page.dart';
 import '../views/auth/register_page.dart';
+import '../views/equipment/CartPage.dart';
 
 import '../bindings/location_binding.dart';
 import '../bindings/equipment_binding.dart';
 import '../bindings/auth_binding.dart';
+
 
 class AppRoutes {
   static const home = '/';
@@ -19,10 +21,11 @@ class AppRoutes {
   static const locationDetail = '/location_detail';
   static const equipmentList = '/equipment';
   static const equipmentRent = '/rent_equipment';
-  static const cartPage = '/cartPage';
+  static const cartPage = '/CartPage';
 
   static final routes = [
     GetPage(name: home, page: () => HomePage()),
+    GetPage(name: cartPage, page: () => CartPage()),
 
     // GetPage(
     //   name: login,

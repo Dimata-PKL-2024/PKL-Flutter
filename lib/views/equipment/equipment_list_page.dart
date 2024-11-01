@@ -24,6 +24,43 @@ class EquipmentListPage extends StatelessWidget {
       ),
       backgroundColor: Colors.blueAccent,
       iconTheme: IconThemeData(color: Colors.white),
+      actions: [
+        Obx(() {
+          return IconButton(
+            icon: Stack(
+              children: [
+                Icon(Icons.shopping_cart),
+                if (controller.cartItemCount > 0)
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 18,
+                        minHeight: 18,
+                      ),
+                      child: Text(
+                        '${controller.cartItemCount}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            onPressed: () {
+              Get.toNamed(AppRoutes.cartPage); 
+            },
+          );
+        }),
+      ],
     );
   }
 
@@ -91,3 +128,4 @@ class EquipmentListPage extends StatelessWidget {
     );
   }
 }
+  

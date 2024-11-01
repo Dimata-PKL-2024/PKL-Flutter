@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../../models/equipment_model.dart';
 import 'package:get/get.dart';
+import '../../../controllers/equipment_controller.dart';
 
 class EquipmentRentPage extends StatelessWidget {
+  final EquipmentController controller = Get.find(); // Mengambil instance EquipmentController
+
   @override
   Widget build(BuildContext context) {
     final Equipment equipment = Get.arguments;
@@ -38,8 +41,7 @@ class EquipmentRentPage extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Get.snackbar(
-                      'Berhasil', 'Anda telah menyewa ${equipment.name}');
+                  controller.addToCart(equipment); // Menambahkan item ke keranjang
                 },
                 child: Text(
                   'Sewa Sekarang',
