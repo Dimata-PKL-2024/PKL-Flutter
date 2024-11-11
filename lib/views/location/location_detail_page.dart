@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../models/location_model.dart';
 import 'package:get/get.dart';
+import '../../../models/location_model.dart';
+import '../../controllers/location_controller.dart';
 
 class LocationDetailPage extends StatelessWidget {
+  final LocationController controller = Get.find<LocationController>();
+
   @override
   Widget build(BuildContext context) {
     final Location location = Get.arguments;
@@ -19,7 +22,7 @@ class LocationDetailPage extends StatelessWidget {
               color: Colors.redAccent,
             ),
             onPressed: () {
-              toggleWishlist(location);
+              controller.toggleWishlist(location); // Memanggil logika bisnis dari controller
             },
           ),
         ],
@@ -52,11 +55,6 @@ class LocationDetailPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void toggleWishlist(Location location) {
-    location.isWishlisted = !location.isWishlisted;
-    // Tambahkan logika untuk menyimpan status wishlist ke storage atau provider
   }
 
   Widget buildImageSection(String imagePath) {

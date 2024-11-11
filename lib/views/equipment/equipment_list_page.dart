@@ -10,9 +10,7 @@ class EquipmentListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Obx(() {
-        return buildEquipmentList();
-      }),
+      body: Obx(() => buildEquipmentList()),
     );
   }
 
@@ -30,7 +28,7 @@ class EquipmentListPage extends StatelessWidget {
             icon: Stack(
               children: [
                 Icon(Icons.shopping_cart),
-                if (controller.cartItemCount > 0)
+                if (controller.cartItemCount.value > 0)
                   Positioned(
                     right: 0,
                     child: Container(
@@ -44,7 +42,7 @@ class EquipmentListPage extends StatelessWidget {
                         minHeight: 18,
                       ),
                       child: Text(
-                        '${controller.cartItemCount}',
+                        '${controller.cartItemCount.value}',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 12,
@@ -56,7 +54,7 @@ class EquipmentListPage extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              Get.toNamed(AppRoutes.cartPage); 
+              Get.toNamed(AppRoutes.cartPage);
             },
           );
         }),
@@ -69,7 +67,7 @@ class EquipmentListPage extends StatelessWidget {
       padding: EdgeInsets.all(8),
       itemCount: controller.equipmentList.length,
       itemBuilder: (context, index) {
-        final equipment = controller.equipmentList[index];
+        final equipment = controller.getEquipmentDetails(index);
         return buildEquipmentCard(equipment);
       },
     );
@@ -128,4 +126,3 @@ class EquipmentListPage extends StatelessWidget {
     );
   }
 }
-  

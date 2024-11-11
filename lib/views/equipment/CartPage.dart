@@ -51,10 +51,7 @@ class CartPage extends StatelessWidget {
         subtitle: buildSubtitle(equipment.pricePerDay, equipment.quantity),
         trailing: IconButton(
           icon: Icon(Icons.delete, color: Colors.red),
-          onPressed: () {
-            controller.cartItems.remove(equipment);
-            controller.cartItemCount.value = controller.cartItems.length;
-          },
+          onPressed: () => controller.removeFromCart(equipment), // Memanggil metode di controller
         ),
       ),
     );

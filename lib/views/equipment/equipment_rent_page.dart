@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../../models/equipment_model.dart';
 import 'package:get/get.dart';
+import '../../../models/equipment_model.dart';
 import '../../../controllers/equipment_controller.dart';
 
-class EquipmentRentPage extends StatefulWidget {
-  @override
-  _EquipmentRentPageState createState() => _EquipmentRentPageState();
-}
-
-class _EquipmentRentPageState extends State<EquipmentRentPage> {
-  final EquipmentController controller = Get.find(); 
-  int quantity = 1; 
+class EquipmentRentPage extends StatelessWidget {
+  final EquipmentController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -43,69 +37,47 @@ class _EquipmentRentPageState extends State<EquipmentRentPage> {
                 ],
               ),
             ),
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-
-      Spacer(),
-
-      Row(
-        children: [
-          Text(
-            'Jumlah:',
-            style: TextStyle(fontSize: 18, color: Colors.grey[700]),
-          ),
-          SizedBox(width: 8),
-          IconButton(
-            icon: Icon(Icons.remove),
-            onPressed: () {
-              setState(() {
-                if (quantity > 1) quantity--;
-              });
-            },
-          ),
-          Text(
-            '$quantity',
-            style: TextStyle(fontSize: 18, color: Colors.grey[700]),
-          ),
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              setState(() {
-                quantity++;
-              });
-            },
-          ),
-        ],
-      ),
-
-      SizedBox(width: 16),
-
-      ElevatedButton(
-        onPressed: () {
-          controller.addToCart(equipment, quantity);
-        },
-        child: Row(
-          children: [
-            Text(
-              'Tambah ke Keranjang',
-              style: TextStyle(color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Spacer(),
+                  Row(
+                    children: [
+                      Text('Jumlah:', style: TextStyle(fontSize: 18, color: Colors.grey[700])),
+                      SizedBox(width: 8),
+                      IconButton(
+                        icon: Icon(Icons.remove),
+                        onPressed: controller.decreaseQuantity,
+                      ),
+                      Obx(() => Text(
+                            '${controller.quantity}',
+                            style: TextStyle(fontSize: 18, color: Colors.grey[700]),
+                          )),
+                      IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: controller.increaseQuantity,
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 16),
+                  ElevatedButton(
+                    onPressed: () => controller.addToCart(equipment),
+                    child: Text(
+                      'Tambah ke Keranjang',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                      textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blueAccent,
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-      ),
-    ],
-  ),
-),
-
           ],
         ),
       ),
@@ -134,10 +106,7 @@ Padding(
             ),
             child: Text(
               'Popular',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -151,10 +120,7 @@ Padding(
       children: [
         Text(
           equipment.name,
-          style: TextStyle(
-              fontSize: 26.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.blueAccent[700]),
+          style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold, color: Colors.blueAccent[700]),
         ),
         SizedBox(height: 8),
         Row(
@@ -165,22 +131,15 @@ Padding(
             Icon(Icons.star, color: Colors.amber, size: 20),
             Icon(Icons.star_half, color: Colors.amber, size: 20),
             SizedBox(width: 8),
-            Text('4.5 (200 reviews)',
-                style: TextStyle(color: Colors.grey[700])),
+            Text('4.5 (200 reviews)', style: TextStyle(color: Colors.grey[700])),
           ],
         ),
         SizedBox(height: 8),
-        Text(
-          equipment.description,
-          style: TextStyle(fontSize: 16.0, color: Colors.grey[600]),
-        ),
+        Text(equipment.description, style: TextStyle(fontSize: 16.0, color: Colors.grey[600])),
         SizedBox(height: 16),
         Text(
           'Harga per hari: Rp${equipment.pricePerDay}',
-          style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.blueAccent[700]),
+          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.blueAccent[700]),
         ),
       ],
     );
@@ -192,18 +151,12 @@ Padding(
       children: [
         Text(
           'Spesifikasi',
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colors.blueAccent[700]),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.blueAccent[700]),
         ),
         SizedBox(height: 8),
-        buildSpecRow(
-            'Bahan', equipment.specifications['Bahan'] ?? 'Tidak diketahui'),
-        buildSpecRow('Kapasitas',
-            equipment.specifications['Kapasitas'] ?? 'Tidak diketahui'),
-        buildSpecRow(
-            'Berat', equipment.specifications['Berat'] ?? 'Tidak diketahui'),
+        buildSpecRow('Bahan', equipment.specifications['Bahan'] ?? 'Tidak diketahui'),
+        buildSpecRow('Kapasitas', equipment.specifications['Kapasitas'] ?? 'Tidak diketahui'),
+        buildSpecRow('Berat', equipment.specifications['Berat'] ?? 'Tidak diketahui'),
       ],
     );
   }
@@ -215,11 +168,7 @@ Padding(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: TextStyle(fontSize: 16, color: Colors.grey[800])),
-          Text(value,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[800])),
+          Text(value, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey[800])),
         ],
       ),
     );
@@ -231,16 +180,12 @@ Padding(
       children: [
         Text(
           'Ulasan Pengguna',
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colors.blueAccent[700]),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.blueAccent[700]),
         ),
         SizedBox(height: 8),
         buildReviewCard('Budi', 'Sangat nyaman, cocok untuk camping!', 4.5),
         buildReviewCard('Sari', 'Cocok untuk dua orang, kualitas bagus.', 4.0),
-        buildReviewCard(
-            'Adi', 'Ringan dan mudah dibawa, direkomendasikan!', 5.0),
+        buildReviewCard('Adi', 'Ringan dan mudah dibawa, direkomendasikan!', 5.0),
       ],
     );
   }
@@ -261,12 +206,12 @@ Padding(
                 (index) => Icon(
                   index < rating ? Icons.star : Icons.star_border,
                   color: Colors.amber,
-                  size: 18,
+                  size: 16,
                 ),
               ),
             ),
             SizedBox(height: 4),
-            Text(review, style: TextStyle(color: Colors.grey[700])),
+            Text(review),
           ],
         ),
       ),
